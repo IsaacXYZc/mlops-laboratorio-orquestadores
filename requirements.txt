@@ -1,2 +1,4 @@
 gradio>=5.49.1
 openai>=2.8.0
+python-dotenv>=1.1.1
+mlflow>=3.5.1
