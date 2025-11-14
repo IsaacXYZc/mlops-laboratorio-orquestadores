@@ -1,9 +1,12 @@
 import gradio as gr
+import provider.gemini_provider as traductor
 
 def translate_text(text, target_language):
     if(text.strip() == ""):
         raise gr.Error("Por favor ingrese un texto para traducir.", duration=6)
-    return f"texto traducido:" + text
+    
+    output_text = traductor.get_traduction(text, target_language)
+    return output_text
 
 
 with gr.Blocks() as demo:
