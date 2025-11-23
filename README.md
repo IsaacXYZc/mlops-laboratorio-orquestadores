@@ -2,7 +2,7 @@
 
 Imagen en dockerHub disponible con `docker pull isaacamador/traductor_genai:latest`
 
-Evidencia en la carpeta de `capturas/
+Evidencia en la carpeta de `capturas/`
 
 ## Instrucciones para ejecutar
 
