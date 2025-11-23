@@ -1,6 +1,7 @@
 # Laboratorio de orquestadores de contenedores
 
-imagen en dockerHub disponible con `docker pull isaacamador/traductor_genai:latest`
+Imagen en dockerHub disponible con `docker pull isaacamador/traductor_genai:latest`
+Evidencia en la carpeta de `capturas/
 
 ## Instrucciones para ejecutar
 
