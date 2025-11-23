@@ -5,3 +5,6 @@ __pycache__/
 # mlflow
 mlruns/
 mlartifacts/
+
+# Archivos temporales
+temp/

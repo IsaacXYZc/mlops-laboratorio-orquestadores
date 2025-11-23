@@ -5,13 +5,16 @@ load_dotenv(override=True)
 
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 
-gemini = OpenAI(
-    api_key=gemini_api_key
-    ,base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-)
+
 model_name = "gemini-2.0-flash"
 
 def get_traduction(text, target_language):
+    if not gemini_api_key:
+        raise ValueError("No se encontro la API key de Gemini. \nConfigurala como GEMINI_API_KEY en un archivo .env o como variable de entorno")
+    gemini = OpenAI(
+        api_key=gemini_api_key,
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+    )
     response =  gemini.chat.completions.create(
         model=model_name,
         messages=[

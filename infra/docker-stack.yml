@@ -1,0 +1,59 @@
+
+networks:
+  ml_network:
+    driver: overlay
+
+volumes:
+  mlflow_runs:
+    driver: local
+
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    container_name: mlflow
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:///mlflow.db
+      --default-artifact-root /mlruns
+      --allowed-hosts "*"
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_runs:/mlruns
+    networks:
+      - ml_network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+  gradio_app:
+    image: isaacamador/traductor_genai:latest
+    container_name: gradio_app
+    ports:
+      - "7860:7860"
+    depends_on:
+      - mlflow
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      MLFLOW_TRACKING_URI: "http://mlflow:5000"
+      PORT: "7860"
+    volumes:
+      - mlflow_runs:/mlruns
+    networks:
+      - ml_network
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
